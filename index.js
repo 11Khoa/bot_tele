@@ -1,111 +1,112 @@
-const TelegramBot = require('node-telegram-bot-api');
+var express=require("express");
 
 
-const token = '1023567659:AAEGEBYyns1m3Lvcq98aR3wi-Z8Bn3FWP8A';
-const bot = new TelegramBot(token, {polling: true});
 
+const TelegramBot = require("node-telegram-bot-api");
+
+const token = "1023567659:AAEGEBYyns1m3Lvcq98aR3wi-Z8Bn3FWP8A";
+const bot = new TelegramBot(token, {
+    polling: true
+});
 
 //Mongoose
-var mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://khoa11:9QZdYw85wRgAEWg1@serverkhoa-teeby.mongodb.net/book?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true },function(error){
-    if(error){
-        console.log("Error MongoDB: " + error);
-    }else{
-        console.log("MongoDB connected successfully")
-    }
-});
+// var mongoose = require('mongoose');
+// mongoose.connect('mongodb+srv://khoa11:9QZdYw85wRgAEWg1@serverkhoa-teeby.mongodb.net/book?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true },function(error){
+//     if(error){
+//         console.log("Error MongoDB: " + error);
+//     }else{
+//         console.log("MongoDB connected successfully")
+//     }
+// });
 
 //module
-// const Key_rule=require("./module/key_rule.js"); 
-
+// const Key_rule=require("./module/key_rule.js");
 
 //get info bot
-bot.getMe()
-.then(function(data)
-{
-    console.log(data);
-})
-.catch(function(err)
-{
-	console.log(err);
-});
-
+bot
+    .getMe()
+    .then(function (data) {
+        console.log(data);
+    })
+    .catch(function (err) {
+        console.log(err);
+    });
 
 const regex = /\w+/g;
-const fuck=['qq','qc','chó'];
+const fuck = ["qq", "qc", "chó", "cc"];
 
-
-bot.on('message', function(message)
-{
-	// Received text message   
+bot.on("message", function (message) {
+    // Received text message
     console.log(message);
-    const str = message.text;    
+    const str = message.text;
     let m;
     while ((m = regex.exec(str)) !== null) {
         // This is necessary to avoid infinite loops with zero-width matches
         if (m.index === regex.lastIndex) {
             regex.lastIndex++;
         }
-        
+
         // The result can be accessed through the `m`-variable.
-        function compare(){
-            var result = '';
-            m.forEach((arr1) => fuck.forEach((arr2) => {
-                if(arr1==arr2){
-                    result = 'co';
-                }
-            }));
+        function compare() {
+            var result = "";
+            m.forEach(arr1 =>
+                fuck.forEach(arr2 => {
+                    if (arr1 == arr2) {
+                        result = "co";
+                    }
+                })
+            );
             return result;
         }
         // console.log(compare().length)
-        if(compare().length !=0){
-            // console.log("nó đã chửi trong câu trên");
+        if (compare().length != 0) {
             bot.sendMessage(
                 message.chat.id,
-                message.from.first_name+' (@'+ message.from.username +')' + "  CHỬI CHỬI CHỬI"
-            )
+                message.from.first_name +
+                " (@" +
+                message.from.username +
+                ")" +
+                "  CHỬI CHỬI CHỬI"
+            );
             break;
         }
     }
-
 });
-
 
 // Matches "/echo [whatever]"
 bot.onText(/\/base64 (.+)/, (msg, match) => {
     // 'msg' is the received Message from Telegram
     // 'match' is the result of executing the regexp above on the text content
     // of the message
-  
+
     const chatId = msg.chat.id;
     const resp = match[1]; // the captured "whatever"
-  
+
     // send back the matched "whatever" to the chat
     bot.sendMessage(chatId, resp);
-  });
+});
 
-  bot.onText(/\/base64 (.+)/, (msg, match) => {
-    // 'msg' is the received Message from Telegram
-    // 'match' is the result of executing the regexp above on the text content
-    // of the message
-  
-    const chatId = msg.chat.id;
-    const resp = match[1]; // the captured "whatever"
-  
-    // send back the matched "whatever" to the chat
-    bot.sendMessage(chatId, resp);
-  });
-
-
-
-
-
-// // Listen for any kind of message. There are different kinds of
-// // messages.
-// bot.on('message', (msg) => {
-//     const chatId = msg.chat.id;
-//     const contentId=msg.text
-  
-//     // send a message to the chat acknowledging receipt of their message
-//     bot.sendMessage(chatId, contentId);
-// });
+bot.onText(/\/about@khoa11_bot/, (msg, match) => {
+    const chatId = msg.chat.id,
+        ulr_photo =
+        "https://scontent.fsgn5-4.fna.fbcdn.net/v/t1.0-9/33092230_373666733143211_6418558388824702976_n.jpg?_nc_cat=104&_nc_ohc=6tj_Oeyon-0AX--Eyv_&_nc_ht=scontent.fsgn5-4.fna&oh=ad873747d6c97c07ee854b7c899224e1&oe=5EC13946",
+        caption_custom = '<a href="http://bg.khoand.xyz/">Info</a>';
+    // HTML_custom= '<a href="http://bg.khoand.xyz/" target="_blank">Info</a>'
+    bot.sendPhoto(
+        chatId,
+        ulr_photo,
+        // {caption: caption_custom},
+        // {parse_mode: '<a href="http://www.example.com/">inline URL</a>'},
+        {
+            reply_markup: {
+                inline_keyboard: [
+                    [{
+                        text: "Go to info...",
+                        url: "https://bg.khoand.xyz/"
+                    }]
+                ]
+            },
+            caption: "no caption"
+        }
+    );
+});
