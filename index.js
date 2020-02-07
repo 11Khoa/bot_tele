@@ -9,18 +9,41 @@ const bot = new TelegramBot(token, {
     polling: true
 });
 
-//Mongoose
-// var mongoose = require('mongoose');
-// mongoose.connect('mongodb+srv://khoa11:9QZdYw85wRgAEWg1@serverkhoa-teeby.mongodb.net/book?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true },function(error){
-//     if(error){
-//         console.log("Error MongoDB: " + error);
-//     }else{
-//         console.log("MongoDB connected successfully")
-//     }
-// });
+// Mongoose
+var mongoose = require('mongoose');
+mongoose.connect('mongodb+srv://khoa11:9QZdYw85wRgAEWg1@serverkhoa-teeby.mongodb.net/telegram?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true },function(error){
+    if(error){
+        console.log("Error MongoDB: " + error);
+    }else{
+        console.log("MongoDB connected successfully")
+    }
+});
 
 //module
-// const Key_rule=require("./module/key_rule.js");
+const addkey=require("./module/addkey.js");// or   "./module/addkey"
+
+bot.onText(/\/add (.+)/,function(msg,match){
+
+    const chatId = msg.chat.id;
+    const resp = match[1];
+
+    const newkey= new addkey({
+        key: resp,
+    });
+
+    //save vaof moongoose
+    newkey.save(function(err){
+        if(err){
+            console.log(err)
+        }else{
+            console.log("add key successful: " + resp)
+            bot.sendMessage(
+                chatId,
+                "add thành công key: "+ resp,
+            )
+        }
+    });
+})
 
 //get info bot
 bot
