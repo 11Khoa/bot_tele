@@ -4,7 +4,8 @@ var express=require("express");
 
 const TelegramBot = require("node-telegram-bot-api");
 
-const TOKEN =process.env.TELEGRAM_TOKEN || "1023567659:AAEGEBYyns1m3Lvcq98aR3wi-Z8Bn3FWP8A";
+// const TOKEN =process.env.TELEGRAM_TOKEN || "1023567659:AAEGEBYyns1m3Lvcq98aR3wi-Z8Bn3FWP8A";
+const TOKEN ="1023567659:AAEGEBYyns1m3Lvcq98aR3wi-Z8Bn3FWP8A";
 
 const options = {
     webHook: {
@@ -121,6 +122,10 @@ bot.on("message", function (message) {
             break;
         }
     }
+
+
+    // get admin group
+    bot.getChatAdministrators(chatId).then(data => {console.log(data);});
 });
 
 // Matches "/echo [whatever]"
@@ -160,3 +165,8 @@ bot.onText(/\/about@khoa11_bot/, (msg, match) => {
         }
     );
 });
+
+
+
+
+// bot.getChatAdministrators(chatId).then(data => {console.log(data);});
