@@ -8,6 +8,10 @@ const token = "1023567659:AAEGEBYyns1m3Lvcq98aR3wi-Z8Bn3FWP8A";
 const bot = new TelegramBot(token, {
     polling: true
 });
+var port = process.env.PORT || 8443;
+var host = process.env.HOST;
+var bot = new TelegramBot(token, {webHook: {port: port, host: host}});
+
 
 // Mongoose
 var mongoose = require('mongoose');
