@@ -125,6 +125,10 @@ bot.on("message", function (message) {
 
     // get admin group
     //  bot.getChatAdministrators(chatId).then(data => {console.log(data);});
+    bot.getChatAdministrators(
+        message.chat.id,
+        console.log( message.from.first_name)
+    )
 });
 
 // Matches "/echo [whatever]"
