@@ -4,13 +4,17 @@ var express=require("express");
 
 const TelegramBot = require("node-telegram-bot-api");
 
-const token = "1023567659:AAEGEBYyns1m3Lvcq98aR3wi-Z8Bn3FWP8A";
-const bot = new TelegramBot(token, {
-    polling: true
-});
-var port = process.env.PORT || 8443;
-var host = process.env.HOST;
-var bot = new TelegramBot(token, {webHook: {port: port, host: host}});
+const   token = "1023567659:AAEGEBYyns1m3Lvcq98aR3wi-Z8Bn3FWP8A",
+        port = process.env.PORT || 443,
+        host = process.env.HOST,
+        externalUrl = process.env.CUSTOM_ENV_VARIABLE || 'https://botkhoa.herokuapp.com',
+        bot = new TelegramBot(
+            token, 
+            { polling: true  },
+            { webHook: { port : port, host : host } }
+        );
+        bot.setWebHook(externalUrl + ':443/bot' + token);
+
 
 
 // Mongoose
