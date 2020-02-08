@@ -4,17 +4,38 @@ var express=require("express");
 
 const TelegramBot = require("node-telegram-bot-api");
 
-const   token = "1023567659:AAEGEBYyns1m3Lvcq98aR3wi-Z8Bn3FWP8A",
-        port = process.env.PORT || 443,
-        host = process.env.HOST,
-        externalUrl = process.env.CUSTOM_ENV_VARIABLE || 'https://botkhoa.herokuapp.com',
-        bot = new TelegramBot(
-            token, 
-            { polling: true  },
-            { webHook: { port : port, host : host } }
-        );
-        bot.setWebHook(externalUrl + ':443/bot' + token);
+const TOKEN =process.env.TELEGRAM_TOKEN || "1023567659:AAEGEBYyns1m3Lvcq98aR3wi-Z8Bn3FWP8A",
+bot = new TelegramBot(token, {
+    polling: true
+});
 
+const options = {
+    webHook: {
+      // Port to which you should bind is assigned to $PORT variable
+      // See: https://devcenter.heroku.com/articles/dynos#local-environment-variables
+      port: process.env.PORT
+      // you do NOT need to set up certificates since Heroku provides
+      // the SSL certs already (https://<app-name>.herokuapp.com)
+      // Also no need to pass IP because on Heroku you need to bind to 0.0.0.0
+    }
+  };
+
+  // Heroku routes from port :443 to $PORT
+// Add URL of your app to env variable or enable Dyno Metadata
+// to get this automatically
+// See: https://devcenter.heroku.com/articles/dyno-metadata
+const url = process.env.APP_URL || 'https://botkhoa.herokuapp.com:443';
+const bot = new TelegramBot(TOKEN, options);
+
+
+// This informs the Telegram servers of the new webhook.
+// Note: we do not need to pass in the cert, as it already provided
+bot.setWebHook(`${url}/bot${TOKEN}`);
+
+// Just to ping!
+bot.on('message', function onMessage(msg) {
+    bot.sendMessage(msg.chat.id, 'I am alive on Heroku!');
+  });
 
 
 // Mongoose
