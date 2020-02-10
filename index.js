@@ -121,6 +121,7 @@ bot.on("message", function (message) {
             break;
         }
     }
+<<<<<<< HEAD
 
 
     // get admin group
@@ -148,6 +149,8 @@ bot.on("message", function (message) {
 //     toDataURL(url_img, function(dataUrl) {
 //       console.log('RESULT:', dataUrl)
 //     })
+=======
+>>>>>>> parent of 71c7f2e... abc'
 });
 
 // Matches "/echo [whatever]"
@@ -187,8 +190,11 @@ bot.onText(/\/about@khoa11_bot/, (msg, match) => {
         }
     );
 });
+<<<<<<< HEAD
 
 
 
 
 // bot.getChatAdministrators(chatId).then(data => {console.log(data);});
+=======
+>>>>>>> parent of 71c7f2e... abc'
