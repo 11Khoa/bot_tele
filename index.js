@@ -121,37 +121,6 @@ bot.on("message", function (message) {
             break;
         }
     }
-<<<<<<< HEAD
-
-
-    // get admin group
-//     bot.getChatAdministrators(
-//         message.chat.id,
-//         console.log( message.from.first_name)
-//     )
-    
-    
-    //convert img to base64
-//     function toDataURL(url, callback) {
-//       var xhr = new XMLHttpRequest();
-//       xhr.onload = function() {
-//         var reader = new FileReader();
-//         reader.onloadend = function() {
-//           callback(reader.result);
-//         }
-//         reader.readAsDataURL(xhr.response);
-//       };
-//       xhr.open('GET', url);
-//       xhr.responseType = 'blob';
-//       xhr.send();
-//     }
-//     var url_img ='https://api.telegram.org/file/bot1023567659:AAEGEBYyns1m3Lvcq98aR3wi-Z8Bn3FWP8A/photos/file_0.jpg';
-//     toDataURL(url_img, function(dataUrl) {
-//       console.log('RESULT:', dataUrl)
-//     })
-=======
->>>>>>> parent of 71c7f2e... abc'
-});
 
 // Matches "/echo [whatever]"
 bot.onText(/\/base64 (.+)/, (msg, match) => {
@@ -190,11 +159,3 @@ bot.onText(/\/about@khoa11_bot/, (msg, match) => {
         }
     );
 });
-<<<<<<< HEAD
-
-
-
-
-// bot.getChatAdministrators(chatId).then(data => {console.log(data);});
-=======
->>>>>>> parent of 71c7f2e... abc'
