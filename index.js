@@ -83,7 +83,7 @@ bot
     });
 
 const regex = /\w+/g;
-const fuck = ["qq", "qc", "chó", "cc"];
+const fuck = ["qq", "qc", "chó", "cc","Qq","óc","oc","cho","Cc"];
 
 bot.on("message", function (message) {
     // Received text message
